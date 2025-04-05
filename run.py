@@ -161,4 +161,17 @@ def main():
 
     
 print("Welcome to Love Sandwiches Data Automation")
-main() 
+stock_data = main() 
+
+def get_stock_values(data):
+    """
+    Return message to user with suggested stock numbers for next market formatted as a dictionnary
+    """
+    headings = SHEET.worksheet("stock").get_all_values()[0]
+    suggested_stock = SHEET.worksheet("stock").get_all_values()[-1]
+    # headings = SHEET.worksheet('stock').row_values(1)
+    print(f'Make the following numbers of sandwiches for the next market:\n')
+    return {headings[i]: suggested_stock[i] for i in range(len(headings))}
+    
+stock_values = get_stock_values(stock_data)
+print(stock_values)
